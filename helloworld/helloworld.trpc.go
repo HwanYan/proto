@@ -42,11 +42,11 @@ func GreeterService_SayHello_Handler(svr interface{}, ctx context.Context, f ser
 
 // GreeterServer_ServiceDesc descriptor for server.RegisterService.
 var GreeterServer_ServiceDesc = server.ServiceDesc{
-	ServiceName: "yrpc.proto.helloworld.Greeter",
+	ServiceName: "yrpc.test.helloworld.Greeter",
 	HandlerType: ((*GreeterService)(nil)),
 	Methods: []server.Method{
 		{
-			Name: "/yrpc.proto.helloworld.Greeter/SayHello",
+			Name: "/yrpc.test.helloworld.Greeter/SayHello",
 			Func: GreeterService_SayHello_Handler,
 		},
 	},
@@ -90,7 +90,7 @@ var NewGreeterClientProxy = func(opts ...client.Option) GreeterClientProxy {
 func (c *GreeterClientProxyImpl) SayHello(ctx context.Context, req *HelloRequest, opts ...client.Option) (*HelloResponse, error) {
 	ctx, msg := codec.WithCloneMessage(ctx)
 	defer codec.PutBackMessage(msg)
-	msg.WithClientRPCName("/yrpc.proto.helloworld.Greeter/SayHello")
+	msg.WithClientRPCName("/yrpc.test.helloworld.Greeter/SayHello")
 	msg.WithCalleeServiceName(GreeterServer_ServiceDesc.ServiceName)
 	msg.WithCalleeApp("")
 	msg.WithCalleeServer("")
