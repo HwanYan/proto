@@ -19,7 +19,7 @@ import (
 
 // GreeterService defines service.
 type GreeterService interface {
-	SayHello(ctx context.Context, req *HelloRequest) (*HelloReply, error)
+	SayHello(ctx context.Context, req *HelloRequest) (*HelloResponse, error)
 }
 
 func GreeterService_SayHello_Handler(svr interface{}, ctx context.Context, f server.FilterFunc) (interface{}, error) {
@@ -63,7 +63,7 @@ func RegisterGreeterService(s server.Service, svr GreeterService) {
 
 type UnimplementedGreeter struct{}
 
-func (s *UnimplementedGreeter) SayHello(ctx context.Context, req *HelloRequest) (*HelloReply, error) {
+func (s *UnimplementedGreeter) SayHello(ctx context.Context, req *HelloRequest) (*HelloResponse, error) {
 	return nil, errors.New("rpc SayHello of service Greeter is not implemented")
 }
 
@@ -75,7 +75,7 @@ func (s *UnimplementedGreeter) SayHello(ctx context.Context, req *HelloRequest) 
 
 // GreeterClientProxy defines service client proxy
 type GreeterClientProxy interface {
-	SayHello(ctx context.Context, req *HelloRequest, opts ...client.Option) (rsp *HelloReply, err error)
+	SayHello(ctx context.Context, req *HelloRequest, opts ...client.Option) (rsp *HelloResponse, err error)
 }
 
 type GreeterClientProxyImpl struct {
@@ -87,7 +87,7 @@ var NewGreeterClientProxy = func(opts ...client.Option) GreeterClientProxy {
 	return &GreeterClientProxyImpl{client: client.DefaultClient, opts: opts}
 }
 
-func (c *GreeterClientProxyImpl) SayHello(ctx context.Context, req *HelloRequest, opts ...client.Option) (*HelloReply, error) {
+func (c *GreeterClientProxyImpl) SayHello(ctx context.Context, req *HelloRequest, opts ...client.Option) (*HelloResponse, error) {
 	ctx, msg := codec.WithCloneMessage(ctx)
 	defer codec.PutBackMessage(msg)
 	msg.WithClientRPCName("/yrpc.proto.helloworld.Greeter/SayHello")
@@ -100,7 +100,7 @@ func (c *GreeterClientProxyImpl) SayHello(ctx context.Context, req *HelloRequest
 	callopts := make([]client.Option, 0, len(c.opts)+len(opts))
 	callopts = append(callopts, c.opts...)
 	callopts = append(callopts, opts...)
-	rsp := &HelloReply{}
+	rsp := &HelloResponse{}
 	if err := c.client.Invoke(ctx, req, rsp, callopts...); err != nil {
 		return nil, err
 	}

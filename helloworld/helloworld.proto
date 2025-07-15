@@ -7,7 +7,7 @@ option go_package="github.com/HwanYan/yrpcproto/helloworld";
 
 // 定义服务接口
 service Greeter {
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  rpc SayHello (HelloRequest) returns (HelloResponse) {}
 }
 
 // 请求参数
@@ -16,6 +16,6 @@ message HelloRequest {
 }
 
 // 响应参数
-message HelloReply {
+message HelloResponse {
   string msg = 1;
 }
