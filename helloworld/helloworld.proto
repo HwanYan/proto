@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package yrpc.proto.helloworld;
+
+// 外部引用当前资源的 import 代码写法取决于 go_package 的设置，同时也需要保持生成的 pb 文件位于 go_package 指定的文件夹下
+option go_package="github.com/HwanYan/yrpcproto/helloworld";
+
+// 定义服务接口
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// 请求参数
+message HelloRequest {
+  string msg = 1;
+}
+
+// 响应参数
+message HelloReply {
+  string msg = 1;
+}
