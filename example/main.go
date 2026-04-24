@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/HwanYan/yrpc-proto/helloworld"
+	"github.com/HwanYan/proto/helloworld"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
